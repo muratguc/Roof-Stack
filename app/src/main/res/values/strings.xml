@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">RoofStacks Challenge</string>
+
+    <string name="search_hint">Search Repository</string>
+    <string name="search_submit">Submit</string>
+
+    <string name="star_gaze_count_text">Stars: %s</string>
+    <string name="open_issues_count_text">Open Issues: %s</string>
+</resources>

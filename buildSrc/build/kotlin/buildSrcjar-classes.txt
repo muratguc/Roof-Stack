@@ -1,0 +1,1 @@
+C:\Users\Lenovo\AndroidStudioProjects\RoofStacks\buildSrc\build\classes\kotlin\main\Dependencies.class;C:\Users\Lenovo\AndroidStudioProjects\RoofStacks\buildSrc\build\classes\kotlin\main\Libraries.class;C:\Users\Lenovo\AndroidStudioProjects\RoofStacks\buildSrc\build\classes\kotlin\main\Versions.class
