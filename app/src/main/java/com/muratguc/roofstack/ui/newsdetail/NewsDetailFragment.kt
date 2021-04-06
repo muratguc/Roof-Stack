@@ -1,10 +1,12 @@
-package com.muratguc.roofstack.ui.repodetail
+package com.muratguc.roofstack.ui.newsdetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import com.muratguc.roofstack.data.model.Article
 import com.muratguc.roofstack.databinding.FragmentNewsDetailBinding
 
@@ -15,11 +17,11 @@ class NewsDetailFragment : Fragment() {
     private val binding get() = _binding!!
 
     companion object {
-        private const val REPO_RESPONSE = "param1"
+        private const val ARTICLE_RESPONSE = "article_response"
 
         fun newInstance(newsListResponseModel: Article) = NewsDetailFragment().apply {
             arguments = Bundle().apply {
-                putParcelable(REPO_RESPONSE, newsListResponseModel)
+                putParcelable(ARTICLE_RESPONSE, newsListResponseModel)
             }
         }
     }
@@ -39,7 +41,7 @@ class NewsDetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            article = it.getParcelable(REPO_RESPONSE)
+            article = it.getParcelable(ARTICLE_RESPONSE)
         }
     }
 
@@ -48,6 +50,22 @@ class NewsDetailFragment : Fragment() {
             binding.apply {
                 lifecycleOwner = viewLifecycleOwner
                 article = it
+
+                newsContent.settings.apply {
+                    javaScriptEnabled = true
+                    javaScriptCanOpenWindowsAutomatically = true
+                    domStorageEnabled = true
+                    setSupportZoom(false)
+                    builtInZoomControls = true
+                }
+
+                newsContent.webViewClient = object : WebViewClient() {
+
+                    override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                        return true
+                    }
+                }
+                newsContent.loadUrl(it.url)
             }
         }
     }

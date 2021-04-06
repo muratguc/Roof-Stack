@@ -11,10 +11,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.muratguc.roofstack.R
 import com.muratguc.roofstack.common.LoaderStateAdapter
 import com.muratguc.roofstack.common.convertLongToTime
 import com.muratguc.roofstack.common.openInBrowser
 import com.muratguc.roofstack.databinding.FragmentNewsListBinding
+import com.muratguc.roofstack.ui.newsdetail.NewsDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -58,7 +60,14 @@ class NewsListFragment : Fragment() {
             newsList.adapter = newsListAdapter.withLoadStateFooter(LoaderStateAdapter())
             newsList.layoutManager = LinearLayoutManager(requireContext())
             newsListAdapter.onItemClick = {
-                requireActivity().openInBrowser(requireActivity(), it.url)
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, NewsDetailFragment.newInstance(it))
+                    .addToBackStack(null)
+                    .commit()
+            }
+
+            newsListAdapter.goWebPage  = { url ->
+                requireActivity().openInBrowser(requireActivity(), url)
             }
 
             filter.setOnClickListener {

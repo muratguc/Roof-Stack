@@ -17,6 +17,7 @@ class NewsListRVA :
     PagingDataAdapter<Article, NewsListRVA.RepoViewHolder>(RepoComparator) {
 
     var onItemClick: ((Article) -> Unit)? = null
+    var goWebPage: ((String) -> Unit)? = null
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RepoViewHolder {
         return RepoViewHolder(
@@ -43,6 +44,10 @@ class NewsListRVA :
             binding.article = item
             binding.root.setOnClickListener {
                 onItemClick?.invoke(item)
+            }
+
+            binding.goWebPage.setOnClickListener {
+                goWebPage?.invoke(item.url)
             }
         }
     }
